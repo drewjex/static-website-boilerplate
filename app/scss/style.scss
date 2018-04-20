@@ -28,7 +28,75 @@ body {
 	}
 
 	.barcode {
+		font-size:30px;
+		color:#444;
 
+		.center {
+			text-align:center;
+			font-size:13px;
+		}
+
+		.row {
+			margin-top:20px;
+			justify-content: start;
+
+			div:nth-child(2) {
+				margin-left:20px;
+			}
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(2, auto);
+			grid-template-rows: repeat(4, auto);
+			font-size:11px;
+			margin-top:20px;
+		}
+
+		.col11 {
+			grid-column: 1;
+			grid-row: 1;
+		}
+
+		.col12 {
+			grid-column: 2;
+			grid-row: 1;
+		}
+
+		.col21 {
+			grid-column: 1;
+			grid-row: 2;
+		}
+
+		.col22 {
+			grid-column: 2;
+			grid-row: 2;
+		}
+
+		.col31 {
+			grid-column: 1;
+			grid-row: 3;
+		}
+
+		.col32 {
+			grid-column: 2;
+			grid-row: 3;
+		}
+
+		.col41 {
+			grid-column: 1;
+			grid-row: 4;
+		}
+
+		.col42 {
+			grid-column: 2;
+			grid-row: 4;
+		}
+
+		span,
+		b {
+			font-size: 11px;
+		}
 	}
 }
 
