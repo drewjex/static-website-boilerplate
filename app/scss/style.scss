@@ -15,7 +15,7 @@ body {
 
 #header {
 	width: 100%;
-	flex:1;
+	margin-bottom:60px;
 
 	.row {
 		display:flex;
@@ -30,6 +30,10 @@ body {
 	.barcode {
 		font-size:30px;
 		color:#444;
+
+		.barcode-img {
+			margin-top:10px;
+		}
 
 		.center {
 			text-align:center;
@@ -97,6 +101,10 @@ body {
 		b {
 			font-size: 11px;
 		}
+
+		span {
+			color:#999;
+		}
 	}
 }
 
@@ -112,6 +120,7 @@ body {
 
 	.ticket-img {
 		flex:1;
+		margin-top:-10px;
 	}
 
 	.main-content {
