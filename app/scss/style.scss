@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 
+$barcodeFontColor: #444;
+$ticketDataColor: #aaa;
+$mainContentParagraphColor: #777;
+$unorderedListElementColor: #333;
+
 * {
 	margin: 0;
 	padding: 0;
@@ -30,7 +35,7 @@ body {
 
 	.barcode {
 		font-size:30px;
-		color:#444;
+		color: $barcodeFontColor;
 
 		.barcode-img {
 			margin-top:10px;
@@ -104,7 +109,7 @@ body {
 		}
 
 		span {
-			color:#aaa;
+			color:$ticketDataColor;
 		}
 	}
 }
@@ -137,7 +142,7 @@ body {
 			font-size:12px;
 			font-weight:300;
 			margin-bottom:40px;
-			color:#777;
+			color:$mainContentParagraphColor;
 			line-height:17px;
 		}
 
@@ -154,7 +159,7 @@ body {
 		ol li {
 			margin: 10px 0px 10px 50px;
 			font-weight:300;
-			color:#333;
+			color:$unorderedListElementColor;
 			width:80%;
 		}
 
