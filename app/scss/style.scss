@@ -39,6 +39,10 @@ body {
 
 		.barcode-img {
 			margin-top:10px;
+			position: relative;
+			left: 50%;
+			right: 50%;
+			transform: translateX(-50%);
 		}
 
 		.center {
@@ -57,7 +61,7 @@ body {
 
 		.grid {
 			display: grid;
-			grid-template-columns: repeat(2, auto);
+			grid-template-columns: repeat(2, minmax(75px, 100px));
 			grid-template-rows: repeat(4, auto);
 			font-size:11px;
 			margin-top:20px;
@@ -192,6 +196,13 @@ body {
 				margin-bottom:16px;
 			}
 		}
+	}
+}
+
+@media print {
+	html, body {
+		height:100%;
+		overflow: hidden;
 	}
 }
 
