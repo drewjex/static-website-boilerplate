@@ -1,0 +1,34 @@
+@media print {
+    #header {
+        margin-bottom:20px;
+    }
+
+    li {
+        visibility: visible;
+    }
+
+    .footer p {
+        font-size:8px !important;
+    }
+
+    .main-content div p {
+        font-size:3px;
+    }
+
+    #content .main-content p {
+        margin-bottom:10px;
+    }
+
+    #content .main-content div:nth-child(2) {
+        margin-bottom:5px;
+    }
+
+    //FIREFOX does not show the correct list elements after the first item when printing - so remove it
+    ol { 
+        list-style-type: decimal !important;
+    }
+
+    li:before {
+        visibility: collapse !important; 
+    }
+}
