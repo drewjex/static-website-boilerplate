@@ -1,0 +1,5 @@
+@media print {
+    .container:not(:first-of-type) .footer {
+        flex: 1 0 230px !important; 
+    }
+}

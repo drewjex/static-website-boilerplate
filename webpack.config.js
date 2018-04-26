@@ -60,14 +60,14 @@ module.exports = {
 			open: false
 		}),
 		new CopyWebpackPlugin([{
-			from: './manifest.json'
-		},{
-			from: './manifest.webapp'
-		},{
-			from: './robots.txt'
-		},{
-			from: './favicon.ico'
-		},{
+		// 	from: './manifest.json'
+		// },{
+		// 	from: './manifest.webapp'
+		// },{
+		// 	from: './robots.txt'
+		// },{
+		// 	from: './favicon.ico'
+		// },{
 			from: './img/**/*',
 			to: './'
 		}])
