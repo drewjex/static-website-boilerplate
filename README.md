@@ -14,7 +14,7 @@ Static website boilterplate built using Webpack. This boilterplate features foll
 Clone the repo
 
 ```sh
-git clone https://github.com/binoy14/static-website-webpack-boilerplate.git
+git clone https://github.com/drewjex/static-website-boilerplate
 ```
 
 Run script to start devlopment
