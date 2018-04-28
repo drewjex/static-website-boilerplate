@@ -13,6 +13,9 @@ $unorderedListElementColor: #333;
 
 body {
 	font-family: 'Open Sans', sans-serif;
+}
+
+.holder {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -215,6 +218,27 @@ body {
 	}
 }
 
+.animate { 
+	transition: transform 0.3s ease-out; 
+}
+
+.ms-touch.slider {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	
+	-ms-overflow-style: none;
+	/* Hides the scrollbar. */
+	
+	-ms-scroll-chaining: none;
+	/* Prevents Metro from swiping to the next tab or app. */
+	
+	-ms-scroll-snap-type: mandatory;
+	/* Forces a snap scroll behavior on your images. */
+	
+	-ms-scroll-snap-points-x: snapInterval(0%, 100%);
+	/* Defines the y and x intervals to snap to when scrolling. */
+  }
+
 @media all {
 	.pagebreak {
 		display:none;
@@ -233,8 +257,16 @@ body {
 		}
 	}
 
-	body {
+	.holder {
 		display:block;
+	}
+
+	#slider {
+		display:block;
+	}
+
+	body {
+		display: block;
 	}
 
 	.pagebreak {
