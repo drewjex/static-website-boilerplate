@@ -104,19 +104,19 @@ if (isMobile) {
               this.slideWidth = document.querySelectorAll(".container")[0].offsetWidth;
             },
 
-            // showArrows: function() {
-            //     let arrows = Array.from(document.querySelectorAll('.arrow'));
-            //     if (this.index != document.querySelectorAll(".container").length-1) {
-            //       arrows[1].classList.add('fade-in-arrow');
-            //     } else {
-            //       arrows[1].classList.remove('fade-in-arrow');
-            //     }
-            //     if (this.index > 0) {
-            //       arrows[0].classList.add('fade-in-arrow');
-            //     } else {
-            //       arrows[0].classList.remove('fade-in-arrow');
-            //     }
-            // },
+            showArrows: function() {
+                let arrows = Array.from(document.querySelectorAll('.arrow'));
+                if (this.index != document.querySelectorAll(".container").length-1) {
+                  arrows[1].classList.add('fade-in-arrow');
+                } else {
+                  arrows[1].classList.remove('fade-in-arrow');
+                }
+                if (this.index > 0) {
+                  arrows[0].classList.add('fade-in-arrow');
+                } else {
+                  arrows[0].classList.remove('fade-in-arrow');
+                }
+            },
         
             bindUIEvents: function() {
         
@@ -145,8 +145,8 @@ if (isMobile) {
               }, 250);
         
               // Get the original touch position.
-              this.touchstartx = event.changedTouches[0].pageX;
-              this.touchstarty = event.changedTouches[0].pageY;
+              this.touchstartx = event.touches[0].pageX;
+              this.touchstarty = event.touches[0].pageY;
         
               // The movement gets all janky if there's a transition on the elements.
               if (document.querySelector('.animate') != null) {
@@ -159,8 +159,8 @@ if (isMobile) {
               this.didMove = true;
 
               // Continuously return touch position.
-              this.touchmovex =  event.changedTouches[0].pageX;
-              this.touchmovey = event.changedTouches[0].pageY;
+              this.touchmovex =  event.touches[0].pageX;
+              this.touchmovey = event.touches[0].pageY;
 
               this.xDelta = this.touchstartx - this.touchmovex;
               this.yDelta = this.touchstarty - this.touchmovey;
@@ -186,10 +186,10 @@ if (isMobile) {
               if (absMove > this.slideWidth/2 || (longPress === false && Math.abs(this.xDelta)/Math.abs(this.yDelta) > this.flickSensitivity)) { //|| longPress === false
                 if (this.movex > this.index*this.slideWidth && this.index < document.querySelectorAll(".container").length-1) {
                   this.index++;
-                  //this.showArrows();
+                  this.showArrows();
                 } else if (this.movex < this.index*this.slideWidth && this.index > 0) {
                   this.index--;
-                  //this.showArrows();
+                  this.showArrows();
                 }
               }      
               this.el.holder.classList.add('animate');
