@@ -11,11 +11,9 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 if (isMobile) {
 
-  document.addEventListener("touchmove", () => {
-    console.log("CLIKCED");
-  });
+  document.addEventListener("touchmove", () => {});
 
-    document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', () => {
 
         //apply mobile styles
         document.querySelector('.holder').classList.add('mobile-holder');  
@@ -187,7 +185,7 @@ if (isMobile) {
                 return;
 
               // Calculate the index. All other calculations are based on the index.
-              if (absMove > this.slideWidth/2 || (longPress === false && Math.abs(this.xDelta)/Math.abs(this.yDelta) > this.flickSensitivity)) { //|| longPress === false
+              if (absMove > this.slideWidth/3 || (longPress === false && Math.abs(this.xDelta)/Math.abs(this.yDelta) > this.flickSensitivity)) { //|| longPress === false
                 if (this.movex > this.index*this.slideWidth && this.index < document.querySelectorAll(".container").length-1) {
                   this.index++;
                   this.showArrows();
