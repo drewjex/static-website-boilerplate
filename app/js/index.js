@@ -23,6 +23,12 @@ if (isMobile) {
 
     document.body.style.visibility = 'visible';
 
+    let ticketCounts = Array.from(document.querySelectorAll('.ticket-cnt'));
+    for (const elem of ticketCounts) {
+      elem.style.fontWeight = '900';
+      elem.style.fontSize = '16px';
+    }
+
     setTimeout(() => {
       window.scrollTo(0, 0);
       document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[0].offsetHeight}px`;
