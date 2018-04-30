@@ -29,6 +29,7 @@ if (isMobile) {
           sliderElem.style.opacity = 1;
           sliderElem.style.visibility = 'visible';
           sliderElem.classList.add("fade-in");
+          window.scrollTo(0, 0);
         }, 100);
 
         let ticketCounts = Array.from(document.querySelectorAll('.ticket-cnt'));
@@ -36,10 +37,6 @@ if (isMobile) {
           elem.style.fontWeight = '900';
           elem.style.fontSize = '16px';
         }
-
-        window.scrollTo(0, 0);
-        document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[0].offsetHeight}px`;
-        document.getElementById('slider').style.overflow = 'hidden';
 
         if (navigator.msMaxTouchPoints) {
           // document.body.classList.add("ms-touch");
@@ -73,10 +70,10 @@ if (isMobile) {
         
             slideHeight: document.querySelectorAll(".container")[0].offsetHeight,
             slideWidth: document.querySelectorAll(".container")[0].offsetWidth,
-            touchstarty: undefined,
-            touchstartx: undefined,
-            touchmovex: undefined,
-            touchmovey: undefined,
+            touchstarty: 0,
+            touchstartx: 0,
+            touchmovex: 0,
+            touchmovey: 0,
             xDelta: 0,
             yDelta: 0,
             sensitivity: 10,
@@ -86,11 +83,12 @@ if (isMobile) {
             lastTouch:0,
             
             init: function() {
-              this.bindUIEvents();
-      
               this.resetHeightValues();
-      
-              document.querySelector('.spinner').classList.add('fade-out');
+              this.bindUIEvents();
+              this.el.holder.classList.add('animate');
+              this.el.holder.style.transform = `translate3d(0,0,0)`;
+              document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[0].offsetHeight}px`;
+              document.getElementById('slider').style.overflow = 'hidden';
             },
 
             resetHeightValues: function() {
@@ -173,7 +171,6 @@ if (isMobile) {
         }
     }, false); 
 } else {
-    document.querySelector('.spinner').style.visibility = 'collapse';
     document.getElementById('slider').style.visibility = 'visible';
     document.getElementById('slider').classList.add("fade-in");
 }
