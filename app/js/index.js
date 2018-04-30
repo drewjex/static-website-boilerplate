@@ -87,7 +87,7 @@ if (isMobile) {
             touchmovey: 0,
             xDelta: 0,
             yDelta: 0,
-            sensitivity: 30,
+            sensitivity: 15,
             flickSensitivity: 5,
             didMove: false,
             index: 0,
