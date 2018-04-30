@@ -62,9 +62,9 @@ body {
 	height: 1.4em;
 	border-top: 0.5em solid #333;
 	border-right: 0.5em solid #333;
-	-moz-transform: rotate(45deg);
-	-webkit-transform: rotate(45deg);
-	transform: rotate(45deg);
+	-moz-transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+	transform: rotate(-135deg);
   }
 }
 
@@ -87,9 +87,9 @@ body {
 		height: 1.4em;
 		border-top: 0.5em solid #333;
 		border-right: 0.5em solid #333;
-		-moz-transform: rotate(-135deg);
-		-webkit-transform: rotate(-135deg);
-		transform: rotate(-135deg);
+		-moz-transform: rotate(45deg);
+		-webkit-transform: rotate(45deg);
+		transform: rotate(45deg);
 	}
 }
 
