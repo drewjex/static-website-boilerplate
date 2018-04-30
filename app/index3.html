@@ -15,6 +15,13 @@
 
 		<!-- Color the status bar on mobile devices -->
         <meta name="theme-color" content="#263238">
+
+        <script type="text/javascript">
+            var elm=document.getElementsByTagName("html")[0];
+            elm.style.display="none";
+            document.addEventListener("DOMContentLoaded",function(event) { elm.style.display="block"; });
+        </script>
+        
 	</head>
 	<body>
         <div class="spinner"></div>
