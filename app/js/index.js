@@ -32,6 +32,13 @@ if (isMobile) {
           window.scrollTo(0, 0);
         }, 100);
 
+        setTimeout(() => {  
+          let arrows = Array.from(document.querySelectorAll('.arrow'));
+          arrows[1].classList.add('fade-in-arrow');
+          let rightArrow = document.querySelector('.right');
+          rightArrow.classList.add('slideLeft');
+        }, 500);
+
         let ticketCounts = Array.from(document.querySelectorAll('.ticket-cnt'));
         for (const elem of ticketCounts) {
           elem.style.fontWeight = '900';
@@ -78,6 +85,7 @@ if (isMobile) {
             yDelta: 0,
             sensitivity: 10,
             flickSensitivity: 3,
+            didMove: false,
             index: 0,
             timer: undefined,
             lastTouch:0,
@@ -94,6 +102,20 @@ if (isMobile) {
             resetHeightValues: function() {
               this.slideHeight = document.querySelectorAll(".container")[0].offsetHeight;
               this.slideWidth = document.querySelectorAll(".container")[0].offsetWidth;
+            },
+
+            showArrows: function() {
+                let arrows = Array.from(document.querySelectorAll('.arrow'));
+                if (this.index != document.querySelectorAll(".container").length-1) {
+                  arrows[1].classList.add('fade-in-arrow');
+                } else {
+                  arrows[1].classList.remove('fade-in-arrow');
+                }
+                if (this.index > 0) {
+                  arrows[0].classList.add('fade-in-arrow');
+                } else {
+                  arrows[0].classList.remove('fade-in-arrow');
+                }
             },
         
             bindUIEvents: function() {
@@ -113,7 +135,9 @@ if (isMobile) {
             },
         
             start: function(event) {
-              
+
+              this.didMove = false;
+
               // Test for flick.
               longPress = false;
               this.timer = setTimeout(function() {
@@ -131,6 +155,9 @@ if (isMobile) {
             },
       
             move: function(event) {
+
+              this.didMove = true;
+
               // Continuously return touch position.
               this.touchmovex =  event.changedTouches[0].pageX;
               this.touchmovey = event.changedTouches[0].pageY;
@@ -152,12 +179,17 @@ if (isMobile) {
 
               var absMove = Math.abs(this.index*this.slideWidth - this.movex);
 
+              if (this.didMove === false)
+                return;
+
               // Calculate the index. All other calculations are based on the index.
               if (absMove > this.slideWidth/2 || (longPress === false && Math.abs(this.xDelta)/Math.abs(this.yDelta) > this.flickSensitivity)) { //|| longPress === false
                 if (this.movex > this.index*this.slideWidth && this.index < document.querySelectorAll(".container").length-1) {
                   this.index++;
+                  this.showArrows();
                 } else if (this.movex < this.index*this.slideWidth && this.index > 0) {
                   this.index--;
+                  this.showArrows();
                 }
               }      
               this.el.holder.classList.add('animate');
