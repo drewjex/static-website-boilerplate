@@ -11,10 +11,6 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 if (isMobile) {
 
-  document.addEventListener("touchmove", () => {
-    console.log("CLIKCED");
-  });
-
     document.addEventListener('DOMContentLoaded', () => {
 
         //apply mobile styles
@@ -87,7 +83,7 @@ if (isMobile) {
             touchmovey: 0,
             xDelta: 0,
             yDelta: 0,
-            sensitivity: 50,
+            sensitivity: 30,
             flickSensitivity: 5,
             didMove: false,
             index: 0,
@@ -140,8 +136,6 @@ if (isMobile) {
         
             start: function(event) {
 
-              console.log("START");
-
               this.didMove = false;
 
               // Test for flick.
@@ -161,8 +155,6 @@ if (isMobile) {
             },
       
             move: function(event) {
-
-              console.log("MOVING");
 
               this.didMove = true;
 
