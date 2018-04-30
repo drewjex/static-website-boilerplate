@@ -40,6 +40,7 @@ if (isMobile) {
         let checkOrientation = function() {
             if(window.orientation !== previousOrientation){
                 previousOrientation = window.orientation;
+                window.scrollTo(0, 0);
                 setTimeout(() => {
                   slider.resetHeightValues();
                 }, 500);
