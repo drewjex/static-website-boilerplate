@@ -11,8 +11,11 @@ $unorderedListElementColor: #333;
 	box-sizing: border-box;
 }
 
+.hidden {
+	display:none;
+}
+
 body {
-	visibility: hidden;
 	font-family: 'Open Sans', sans-serif;
 }
 
