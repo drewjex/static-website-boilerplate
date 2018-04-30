@@ -15,6 +15,15 @@ $unorderedListElementColor: #333;
 	display:none;
 }
 
+.mobile-holder {
+	flex-direction: row !important;
+	align-items: start !important;
+}
+.mobile-container {
+	width:100% !important;
+	max-width:none !important;
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 }
@@ -407,17 +416,16 @@ body {
 	}
 }
 
-@media only screen and (max-width: 780px) and (min-width: 750px) {
-	.container {
-		padding-top: 40px !important;
-		padding-bottom:60px !important;
-	}
-}
-
 @media only screen and (max-width: 750px) {
 	.container {
 		width:90%;
 	}
+
+	#header .row {
+		flex-direction:column;
+		align-items: center;
+	}
+
 	#header .row {
 		flex-direction:column;
 		align-items: center;
