@@ -9,7 +9,10 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 if (isMobile) {
 
+  document.getElementById('slider').style.opacity = 0;
+
   document.querySelector('.spinner').addEventListener("transitionend", () => {
+    document.getElementById('slider').style.opacity = 1;
     document.getElementById('slider').style.visibility = 'visible';
     document.getElementById('slider').classList.add("fade-in");
   });
