@@ -9,12 +9,14 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 if (isMobile) {
 
-  document.getElementById('slider').style.opacity = 0;
+  let sliderElem = document.getElementById('slider');
+
+  sliderElem.style.opacity = 0;
 
   document.querySelector('.spinner').addEventListener("transitionend", () => {
-    document.getElementById('slider').style.opacity = 1;
-    document.getElementById('slider').style.visibility = 'visible';
-    document.getElementById('slider').classList.add("fade-in");
+    sliderElem.style.opacity = 1;
+    sliderElem.style.visibility = 'visible';
+    sliderElem.classList.add("fade-in");
   });
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -140,7 +142,7 @@ if (isMobile) {
     }, 500);
   }, false); 
 } else {
-  document.querySelector('.spinner').classList.add('fade-out');
+  document.querySelector('.spinner').style.visibility = 'collapse';
   document.getElementById('slider').style.visibility = 'visible';
   document.getElementById('slider').classList.add("fade-in");
 }
