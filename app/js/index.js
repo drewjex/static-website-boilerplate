@@ -21,6 +21,8 @@ if (isMobile) {
 
   document.addEventListener('DOMContentLoaded', () => {
 
+    document.body.style.visibility = 'visible';
+
     setTimeout(() => {
       window.scrollTo(0, 0);
       document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[0].offsetHeight}px`;
