@@ -11,6 +11,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 if (isMobile) {
 
+  //required for iOS....
   document.addEventListener("touchmove", () => {});
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -45,7 +46,7 @@ if (isMobile) {
         for (const elem of ticketCounts) {
           elem.style.fontWeight = '900';
           elem.style.fontSize = '16px';
-        }
+        }      
 
         if (navigator.msMaxTouchPoints) {
           // document.body.classList.add("ms-touch");
@@ -74,7 +75,8 @@ if (isMobile) {
             el: {
               slider: document.getElementById('slider'),
               holder: document.querySelector('.holder'),
-              imgSlide: document.querySelector('.container')
+              leftArrow: document.querySelector('.left'),
+              rightArrow: document.querySelector('.right')
             },
         
             slideHeight: document.querySelectorAll(".container")[0].offsetHeight,
@@ -122,18 +124,58 @@ if (isMobile) {
         
             bindUIEvents: function() {
         
-              this.el.holder.addEventListener("touchstart", function(event) {
+              this.el.holder.addEventListener("touchstart", event => {
                 slider.start(event);
               });
       
-              this.el.holder.addEventListener("touchmove", function(event) {
+              this.el.holder.addEventListener("touchmove", event => {
                   slider.move(event);
                 });
         
-              this.el.holder.addEventListener("touchend", function(event) {
+              this.el.holder.addEventListener("touchend", event => {
                 slider.end(event);
               });
-        
+
+              this.el.leftArrow.addEventListener("touchstart", event => {
+                slider.start(event);
+              });
+
+              this.el.leftArrow.addEventListener("touchmove", event => {
+                slider.move(event);
+              });
+
+              this.el.rightArrow.addEventListener("touchstart", event => {
+                slider.start(event);
+              });
+
+              this.el.rightArrow.addEventListener("touchmove", event => {
+                slider.move(event);
+              });
+
+              this.el.leftArrow.addEventListener("touchend", event => {
+                if (this.index <= 0) {
+                  this.index = 0;
+                  return;
+                }
+
+                this.index--;
+                this.animate();
+              });
+
+              this.el.rightArrow.addEventListener("touchend", event => {
+                if (this.index == document.querySelectorAll(".container").length-1) return;
+
+                this.index++;
+                this.animate();
+              });
+            },
+
+            animate: function() {
+              this.showArrows();
+              this.el.holder.classList.add('animate');
+              this.el.holder.style.transform = `translate3d(-${this.index*this.slideWidth}px,0,0)`;
+              document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[this.index].offsetHeight}px`;
+              document.getElementById('slider').style.overflow = 'hidden';
             },
         
             start: function(event) {
