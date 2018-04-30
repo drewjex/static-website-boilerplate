@@ -11,6 +11,10 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 if (isMobile) {
 
+  document.addEventListener("touchmove", () => {
+    console.log("CLIKCED");
+  });
+
     document.addEventListener('DOMContentLoaded', () => {
 
         //apply mobile styles
@@ -83,8 +87,8 @@ if (isMobile) {
             touchmovey: 0,
             xDelta: 0,
             yDelta: 0,
-            sensitivity: 10,
-            flickSensitivity: 3,
+            sensitivity: 50,
+            flickSensitivity: 5,
             didMove: false,
             index: 0,
             timer: undefined,
@@ -136,6 +140,8 @@ if (isMobile) {
         
             start: function(event) {
 
+              console.log("START");
+
               this.didMove = false;
 
               // Test for flick.
@@ -145,8 +151,8 @@ if (isMobile) {
               }, 250);
         
               // Get the original touch position.
-              this.touchstartx = event.touches[0].pageX;
-              this.touchstarty = event.touches[0].pageY;
+              this.touchstartx = event.changedTouches[0].pageX;
+              this.touchstarty = event.changedTouches[0].pageY;
         
               // The movement gets all janky if there's a transition on the elements.
               if (document.querySelector('.animate') != null) {
@@ -156,11 +162,13 @@ if (isMobile) {
       
             move: function(event) {
 
+              console.log("MOVING");
+
               this.didMove = true;
 
               // Continuously return touch position.
-              this.touchmovex =  event.touches[0].pageX;
-              this.touchmovey = event.touches[0].pageY;
+              this.touchmovex =  event.changedTouches[0].pageX;
+              this.touchmovey = event.changedTouches[0].pageY;
 
               this.xDelta = this.touchstartx - this.touchmovex;
               this.yDelta = this.touchstarty - this.touchmovey;
