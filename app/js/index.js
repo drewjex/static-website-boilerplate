@@ -141,7 +141,7 @@ if (isMobile) {
       
         slider.init();
       }
-    }, 500);
+    }, 750);
   }, false); 
 } else {
   document.querySelector('.spinner').style.visibility = 'collapse';
