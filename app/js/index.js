@@ -11,6 +11,10 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 if (isMobile) {
 
+  document.addEventListener("touchmove", () => {
+    console.log("CLIKCED");
+  });
+
     document.addEventListener('DOMContentLoaded', () => {
 
         //apply mobile styles
