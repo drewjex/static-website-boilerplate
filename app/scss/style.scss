@@ -312,6 +312,14 @@ body {
 		margin-bottom:10px;
 	}
 
+	#header {
+		margin-bottom:0px;
+	}
+
+	.ticket-img {
+		visibility: collapse;
+	}
+
 	.footer {
 		flex: 1 0 auto !important;
 		max-height:none !important;
