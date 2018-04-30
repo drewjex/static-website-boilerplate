@@ -113,6 +113,7 @@ if (isMobile) {
             },
         
             start: function(event) {
+              
               // Test for flick.
               longPress = false;
               this.timer = setTimeout(function() {
