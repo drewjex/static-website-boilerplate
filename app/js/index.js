@@ -16,236 +16,229 @@ if (isMobile) {
 
   document.addEventListener('DOMContentLoaded', () => {
 
-        //apply mobile styles
-        document.querySelector('.holder').classList.add('mobile-holder');  
-        let containers = Array.from(document.querySelectorAll('.container'));
-        for (const elem of containers) {
-          elem.classList.add('mobile-container');
-        }
+      //apply mobile styles
+      document.querySelector('.holder').classList.add('mobile-holder');  
+      let containers = Array.from(document.querySelectorAll('.container'));
+      for (const elem of containers) {
+        elem.classList.add('mobile-container');
+      }
 
-        //make page invisible while loading
-        let sliderElem = document.getElementById('slider');
-        sliderElem.style.opacity = 0;
+      //make page invisible while loading
+      let sliderElem = document.getElementById('slider');
+      sliderElem.style.opacity = 0;
 
-        //on spinner transition end, fade-in everything else
-        setTimeout(() => {
-          sliderElem.style.opacity = 1;
-          sliderElem.style.visibility = 'visible';
-          sliderElem.classList.add("fade-in");
-          window.scrollTo(0, 0);
-        }, 100);
+      //on spinner transition end, fade-in everything else
+      setTimeout(() => {
+        sliderElem.style.opacity = 1;
+        sliderElem.style.visibility = 'visible';
+        sliderElem.classList.add("fade-in");
+        window.scrollTo(0, 0);
+      }, 100);
 
-        setTimeout(() => {  
-          let arrows = Array.from(document.querySelectorAll('.arrow'));
-          arrows[1].classList.add('fade-in-arrow');
-          let rightArrow = document.querySelector('.right');
-          rightArrow.classList.add('slideLeft');
-        }, 500);
+      setTimeout(() => {  
+        let arrows = Array.from(document.querySelectorAll('.arrow'));
+        arrows[1].classList.add('fade-in-arrow');
+        let rightArrow = document.querySelector('.right');
+        rightArrow.classList.add('slideLeft');
+      }, 500);
 
-        let ticketCounts = Array.from(document.querySelectorAll('.ticket-cnt'));
-        for (const elem of ticketCounts) {
-          elem.style.fontWeight = '900';
-          elem.style.fontSize = '16px';
-        }      
+      let ticketCounts = Array.from(document.querySelectorAll('.ticket-cnt'));
+      for (const elem of ticketCounts) {
+        elem.style.fontWeight = '900';
+        elem.style.fontSize = '16px';
+      }      
 
-        if (navigator.msMaxTouchPoints) {
-          // document.body.classList.add("ms-touch");
-      
-          // document.body.addEventListener("scroll", event => {
-          //     document.querySelector('.slide-image').style.transform = `translate3d(-${(100-$(this).scrollLeft()/6)}px,0,0)`;
-          // });
-      } else {
-
-          let previousOrientation = window.orientation;
-          let checkOrientation = function() {
-              if(window.orientation !== previousOrientation){
-                  previousOrientation = window.orientation;
-                  window.scrollTo(0, 0);
-                  setTimeout(() => {
-                    slider.resetHeightValues();
-                  }, 500);
-              }
-          };
+      let previousOrientation = window.orientation;
+      let checkOrientation = function() {
+          if(window.orientation !== previousOrientation){
+              previousOrientation = window.orientation;
+              window.scrollTo(0, 0);
+              setTimeout(() => {
+                slider.resetHeightValues();
+              }, 500);
+          }
+      };
+    
+      window.addEventListener("resize", checkOrientation, false);
+      window.addEventListener("orientationchange", checkOrientation, false);
+  
+      let slider = {
+    
+        el: {
+          slider: document.getElementById('slider'),
+          holder: document.querySelector('.holder'),
+          leftArrow: document.querySelector('.left'),
+          rightArrow: document.querySelector('.right')
+        },
+    
+        slideHeight: document.querySelectorAll(".container")[0].offsetHeight,
+        slideWidth: document.querySelectorAll(".container")[0].offsetWidth,
+        touchstarty: 0,
+        touchstartx: 0,
+        touchmovex: 0,
+        touchmovey: 0,
+        xDelta: 0,
+        yDelta: 0,
+        sensitivity: 15,
+        flickSensitivity: 5,
+        didMove: false,
+        index: 0,
+        timer: undefined,
+        lastTouch:0,
         
-          window.addEventListener("resize", checkOrientation, false);
-          window.addEventListener("orientationchange", checkOrientation, false);
-      
-          let slider = {
-        
-            el: {
-              slider: document.getElementById('slider'),
-              holder: document.querySelector('.holder'),
-              leftArrow: document.querySelector('.left'),
-              rightArrow: document.querySelector('.right')
-            },
-        
-            slideHeight: document.querySelectorAll(".container")[0].offsetHeight,
-            slideWidth: document.querySelectorAll(".container")[0].offsetWidth,
-            touchstarty: 0,
-            touchstartx: 0,
-            touchmovex: 0,
-            touchmovey: 0,
-            xDelta: 0,
-            yDelta: 0,
-            sensitivity: 15,
-            flickSensitivity: 5,
-            didMove: false,
-            index: 0,
-            timer: undefined,
-            lastTouch:0,
-            
-            init: function() {
-              this.resetHeightValues();
-              this.bindUIEvents();
-              this.el.holder.classList.add('animate');
-              this.el.holder.style.transform = `translate3d(0,0,0)`;
-              document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[0].offsetHeight}px`;
-              document.getElementById('slider').style.overflow = 'hidden';
-            },
+        init: function() {
+          this.resetHeightValues();
+          this.bindUIEvents();
+          this.el.holder.classList.add('animate');
+          this.el.holder.style.transform = `translate3d(0,0,0)`;
+          document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[0].offsetHeight}px`;
+          document.getElementById('slider').style.overflow = 'hidden';
+        },
 
-            resetHeightValues: function() {
-              this.slideHeight = document.querySelectorAll(".container")[0].offsetHeight;
-              this.slideWidth = document.querySelectorAll(".container")[0].offsetWidth;
-            },
+        resetHeightValues: function() {
+          this.slideHeight = document.querySelectorAll(".container")[0].offsetHeight;
+          this.slideWidth = document.querySelectorAll(".container")[0].offsetWidth;
+        },
 
-            showArrows: function() {
-                let arrows = Array.from(document.querySelectorAll('.arrow'));
-                if (this.index != document.querySelectorAll(".container").length-1) {
-                  arrows[1].classList.add('fade-in-arrow');
-                } else {
-                  arrows[1].classList.remove('fade-in-arrow');
-                }
-                if (this.index > 0) {
-                  arrows[0].classList.add('fade-in-arrow');
-                } else {
-                  arrows[0].classList.remove('fade-in-arrow');
-                }
-            },
-        
-            bindUIEvents: function() {
-        
-              this.el.holder.addEventListener("touchstart", event => {
-                slider.start(event);
-              });
-      
-              this.el.holder.addEventListener("touchmove", event => {
-                  slider.move(event);
-                });
-        
-              this.el.holder.addEventListener("touchend", event => {
-                slider.end(event);
-              });
-
-              this.el.leftArrow.addEventListener("touchstart", event => {
-                slider.start(event);
-              });
-
-              this.el.leftArrow.addEventListener("touchmove", event => {
-                slider.move(event);
-              });
-
-              this.el.rightArrow.addEventListener("touchstart", event => {
-                slider.start(event);
-              });
-
-              this.el.rightArrow.addEventListener("touchmove", event => {
-                slider.move(event);
-              });
-
-              this.el.leftArrow.addEventListener("touchend", event => {
-                if (this.index <= 0) {
-                  this.index = 0;
-                  return;
-                }
-
-                this.index--;
-                this.animate();
-              });
-
-              this.el.rightArrow.addEventListener("touchend", event => {
-                if (this.index == document.querySelectorAll(".container").length-1) return;
-
-                this.index++;
-                this.animate();
-              });
-            },
-
-            animate: function() {
-              this.showArrows();
-              this.el.holder.classList.add('animate');
-              this.el.holder.style.transform = `translate3d(-${this.index*this.slideWidth}px,0,0)`;
-              document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[this.index].offsetHeight}px`;
-              document.getElementById('slider').style.overflow = 'hidden';
-            },
-        
-            start: function(event) {
-
-              this.didMove = false;
-
-              // Test for flick.
-              longPress = false;
-              this.timer = setTimeout(function() {
-                longPress = true;
-              }, 250);
-        
-              // Get the original touch position.
-              this.touchstartx = event.changedTouches[0].pageX;
-              this.touchstarty = event.changedTouches[0].pageY;
-        
-              // The movement gets all janky if there's a transition on the elements.
-              if (document.querySelector('.animate') != null) {
-                document.querySelector('.animate').classList.remove('animate');
-              }
-            },
-      
-            move: function(event) {
-
-              this.didMove = true;
-
-              // Continuously return touch position.
-              this.touchmovex =  event.changedTouches[0].pageX;
-              this.touchmovey = event.changedTouches[0].pageY;
-
-              this.xDelta = this.touchstartx - this.touchmovex;
-              this.yDelta = this.touchstarty - this.touchmovey;
-
-              // Calculate distance to translate holder.
-              this.movex = this.index*this.slideWidth + this.xDelta;
-              if (this.index < document.querySelectorAll(".container").length && Math.abs(this.xDelta) > this.sensitivity) { // Makes the holder stop moving when there is no more content.
-                this.el.holder.style.transform = `translate3d(-${this.movex+(this.xDelta < 0 ? this.sensitivity : -this.sensitivity)}px,0,0)`;
-              }
-            },
-        
-            end: function(event) {
-      
-              let touchEndx = event.changedTouches[0].pageX;
-              let swipeX = touchEndx - this.touchstartx;
-
-              var absMove = Math.abs(this.index*this.slideWidth - this.movex);
-
-              if (this.didMove === false)
-                return;
-
-              // Calculate the index. All other calculations are based on the index.
-              if (absMove > this.slideWidth/3 || (longPress === false && Math.abs(this.xDelta)/Math.abs(this.yDelta) > this.flickSensitivity)) { //|| longPress === false
-                if (this.movex > this.index*this.slideWidth && this.index < document.querySelectorAll(".container").length-1) {
-                  this.index++;
-                  this.showArrows();
-                } else if (this.movex < this.index*this.slideWidth && this.index > 0) {
-                  this.index--;
-                  this.showArrows();
-                }
-              }      
-              this.el.holder.classList.add('animate');
-              this.el.holder.style.transform = `translate3d(-${this.index*this.slideWidth}px,0,0)`;
-              document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[this.index].offsetHeight}px`;
-              document.getElementById('slider').style.overflow = 'hidden';
+        showArrows: function() {
+            let arrows = Array.from(document.querySelectorAll('.arrow'));
+            if (this.index != document.querySelectorAll(".container").length-1) {
+              arrows[1].classList.add('fade-in-arrow');
+            } else {
+              arrows[1].classList.remove('fade-in-arrow');
             }
-        
-          };
-        
-          slider.init();
+            if (this.index > 0) {
+              arrows[0].classList.add('fade-in-arrow');
+            } else {
+              arrows[0].classList.remove('fade-in-arrow');
+            }
+        },
+    
+        bindUIEvents: function() {
+    
+          this.el.holder.addEventListener("touchstart", event => {
+            slider.start(event);
+          });
+  
+          this.el.holder.addEventListener("touchmove", event => {
+              slider.move(event);
+            });
+    
+          this.el.holder.addEventListener("touchend", event => {
+            slider.end(event);
+          });
+
+          this.el.leftArrow.addEventListener("touchstart", event => {
+            slider.start(event);
+          });
+
+          this.el.leftArrow.addEventListener("touchmove", event => {
+            slider.move(event);
+          });
+
+          this.el.rightArrow.addEventListener("touchstart", event => {
+            slider.start(event);
+          });
+
+          this.el.rightArrow.addEventListener("touchmove", event => {
+            slider.move(event);
+          });
+
+          this.el.leftArrow.addEventListener("touchend", event => {
+            if (this.index <= 0) {
+              this.index = 0;
+              return;
+            }
+
+            this.index--;
+            this.animate();
+          });
+
+          this.el.rightArrow.addEventListener("touchend", event => {
+            if (this.index == document.querySelectorAll(".container").length-1) return;
+
+            this.index++;
+            this.animate();
+          });
+        },
+
+        animate: function() {
+          this.showArrows();
+          this.el.holder.classList.add('animate');
+          this.el.holder.style.transform = `translate3d(-${this.index*this.slideWidth}px,0,0)`;
+          document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[this.index].offsetHeight}px`;
+          document.getElementById('slider').style.overflow = 'hidden';
+        },
+    
+        start: function(event) {
+
+          this.didMove = false;
+
+          // Test for flick.
+          longPress = false;
+          this.timer = setTimeout(function() {
+            longPress = true;
+          }, 250);
+    
+          // Get the original touch position.
+          this.touchstartx = event.changedTouches[0].pageX;
+          this.touchstarty = event.changedTouches[0].pageY;
+    
+          // The movement gets all janky if there's a transition on the elements.
+          if (document.querySelector('.animate') != null) {
+            document.querySelector('.animate').classList.remove('animate');
+          }
+        },
+  
+        move: function(event) {
+
+          this.didMove = true;
+
+          // Continuously return touch position.
+          this.touchmovex =  event.changedTouches[0].pageX;
+          this.touchmovey = event.changedTouches[0].pageY;
+
+          this.xDelta = this.touchstartx - this.touchmovex;
+          this.yDelta = this.touchstarty - this.touchmovey;
+
+          // Calculate distance to translate holder.
+          this.movex = this.index*this.slideWidth + this.xDelta;
+          if (this.index < document.querySelectorAll(".container").length && Math.abs(this.xDelta) > this.sensitivity) { // Makes the holder stop moving when there is no more content.
+            this.el.holder.style.transform = `translate3d(-${this.movex+(this.xDelta < 0 ? this.sensitivity : -this.sensitivity)}px,0,0)`;
+          }
+        },
+    
+        end: function(event) {
+  
+          let touchEndx = event.changedTouches[0].pageX;
+          let swipeX = touchEndx - this.touchstartx;
+
+          var absMove = Math.abs(this.index*this.slideWidth - this.movex);
+
+          if (this.didMove === false)
+            return;
+
+          // Calculate the index. All other calculations are based on the index.
+          if (absMove > this.slideWidth/3 || (longPress === false && Math.abs(this.xDelta)/Math.abs(this.yDelta) > this.flickSensitivity)) { //|| longPress === false
+            if (this.movex > this.index*this.slideWidth && this.index < document.querySelectorAll(".container").length-1) {
+              this.index++;
+              this.showArrows();
+            } else if (this.movex < this.index*this.slideWidth && this.index > 0) {
+              this.index--;
+              this.showArrows();
+            }
+          }   
+              
+          this.el.holder.classList.add('animate');
+          this.el.holder.style.transform = `translate3d(-${this.index*this.slideWidth}px,0,0)`;
+          document.getElementById('slider').style.height = `${Array.from(document.querySelectorAll(".container"))[this.index].offsetHeight}px`;
+          document.getElementById('slider').style.overflow = 'hidden';
         }
+    
+      };
+    
+      slider.init();
+
     }, false); 
 } else {
     document.getElementById('slider').style.visibility = 'visible';
