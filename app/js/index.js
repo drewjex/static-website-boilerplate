@@ -35,18 +35,14 @@ if (isMobile) {
         window.scrollTo(0, 0);
       }, 100);
 
-      setTimeout(() => {  
-        let arrows = Array.from(document.querySelectorAll('.arrow'));
-        arrows[1].classList.add('fade-in-arrow');
-        let rightArrow = document.querySelector('.right');
-        rightArrow.classList.add('slideLeft');
-      }, 500);
-
-      let ticketCounts = Array.from(document.querySelectorAll('.ticket-cnt'));
-      for (const elem of ticketCounts) {
-        elem.style.fontWeight = '900';
-        elem.style.fontSize = '16px';
-      }      
+      if (document.querySelectorAll('.container').length > 1) {
+        setTimeout(() => {  
+          let arrows = Array.from(document.querySelectorAll('.arrow'));
+          arrows[1].classList.add('fade-in-arrow');
+          let rightArrow = document.querySelector('.right');
+          rightArrow.classList.add('slideLeft');
+        }, 500);
+      }    
 
       let previousOrientation = window.orientation;
       let checkOrientation = function() {
