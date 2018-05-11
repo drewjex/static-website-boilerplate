@@ -489,10 +489,6 @@ body {
 		page-break-inside: avoid;
 		-webkit-region-break-inside: avoid;
     }
-    
-    .pagebreak:last-child {
-        display:none;
-    }
 
 	.footer {
         justify-content: flex-end !important;
