@@ -17,6 +17,14 @@
         font-size:7px !important;
     }
 
+    #content .main-content {
+        min-height:660px !important;
+
+        p {
+            margin-bottom: 20px;
+        }
+    }
+
     .container:not(:first-of-type) .footer {
         flex: 1 0 230px !important; 
     }
